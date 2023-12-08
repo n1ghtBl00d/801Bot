@@ -12,7 +12,7 @@ const char index_html[] PROGMEM = R"rawliteral(
 		font-weight: bold;
 	}
     img {
-        transform: scale(2);
+        transform: scale(3);
     }
 	</style>
 </head>
@@ -141,7 +141,7 @@ class JoystickController
 	}
 }
 
-let joystick = new JoystickController('stick', 100, 8);
+let joystick = new JoystickController('stick', 255, 8);
 let websocket = new WebSocket('ws://' + window.location.hostname + '/ws');
 let lastUpdate = 0;
 let lastValue = joystick.value;

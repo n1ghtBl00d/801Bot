@@ -7,12 +7,21 @@
 
 #include "html.h"
 
+
+// ------ Begin User Settings ------
 const char* ssid = "your-ssid";
 const char* password = "your-password";
 
-Servo servo = Servo();
+const int rDeadzoneVal = 1500;
+const int lDeadzoneVal = 1500;
+
+const int turnFactor = 3;
+
 const int rServoPin = 33;
 const int lServoPin = 34;
+// ------ Begin User Settings ------
+
+Servo servo = Servo();
 
 AsyncWebServer server(80);
 AsyncWebSocket ws("/ws");
@@ -61,18 +70,25 @@ void loop() {
 }
 
 void updateServos() {
+  Serial.println("starting updateServos()");
   
-  int rVal = yValue - xValue;
-  int lVal = yValue + xValue;
+  int rVal = yValue - (xValue/turnFactor);
+  int lVal = yValue + (xValue/turnFactor);
 
   if(rVal > 100) rVal = 100;
   if(rVal < -100) rVal = -100;
   if(lVal > 100) lVal = 100;
   if(lVal < -100) lVal = -100;
 
-  int rValue = map(rVal, -100, 100, 2000, 1000);
-  int lValue = map(lVal, -100, 100, 1000, 2000);
+  int rValue = map(rVal, -270, 270, 2000, 1000);
+  int lValue = map(lVal, -270, 270, 1000, 2000);
 
-  servo.writeMicroseconds(lServoPin, lValue);
-  servo.writeMicroseconds(rServoPin, rValue);
+  if((abs(rVal) > 10) || (abs(lVal) > 10)){
+    servo.writeMicroseconds(lServoPin, lValue);
+    servo.writeMicroseconds(rServoPin, rValue);
+  }else{
+    servo.writeMicroseconds(lServoPin, lDeadzoneVal);
+    servo.writeMicroseconds(rServoPin, rDeadzoneVal);
+    servo.pause();
+  }
 }
