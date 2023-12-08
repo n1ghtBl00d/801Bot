@@ -184,3 +184,90 @@ loop();
 </body>
 </html>
 )rawliteral";
+
+
+
+const char gamepad_html[] PROGMEM = R"rawliteral(
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Joystick Controls</title>
+	<style>
+	body
+	{
+		font-family: Courier, monospaced;
+		font-size: 16px;
+		font-weight: bold;
+	}
+	</style>
+</head>
+
+<body>
+
+<div style='text-align: center;'>801Bot Joystick Controls</div>
+<hr>
+<div id='status' style='color: red; text-align: center;'>Joystick</div>
+
+<hr>
+
+<div style="width: 20%; margin: auto; text-align: center;">
+	<span>Enable Remote Control:</span>
+	<input type="checkbox" id="listenerActive" value="unchecked" style="margin-left: 10px;transform: scale(2)">
+</div>
+
+<script>
+timer = 0;
+
+document.addEventListener('DOMContentLoaded', function(){
+	document.getElementById('listenerActive').addEventListener("click", enableCheck);
+
+});
+
+function enableCheck() {
+    console.log("entered enableCheck")
+
+    var isChecked = document.getElementById('listenerActive').checked;
+
+    if(isChecked == true) {
+        timer = setInterval(sendUpdate, 200);
+    }
+    else
+    {
+        clearInterval(timer)
+
+        socket.emit("Stop", "Stop")
+    }
+
+
+}
+
+gamepad = navigator.getGamepads()[0];
+let websocket = new WebSocket('ws://' + window.location.hostname + '/ws');
+let lastUpdate = 0;
+let lastValue = 0;
+
+
+function sendUpdate()
+{
+	
+	x = (gamepad.axes[2] * 255); //Gamepad gives from -1 to 1, robot expects from -255 to 255
+	y = (gamepad.axes[3] * 255); // Axes 2 and 3 should be right joystick of Xbox-style controllers. 0 and 1 are left
+
+    console.log(websocket.readyState)
+    if(websocket.readyState == 1){
+        console.log('Sent X: ' + x + ', Y: ' + y)
+        websocket.send('X' + x);
+        websocket.send('Y' + y);
+    }else{
+        websocket = new WebSocket('ws://' + window.location.hostname + '/ws');
+    }
+    
+    
+}
+
+</script>
+
+</body>
+</html>
+)rawliteral";

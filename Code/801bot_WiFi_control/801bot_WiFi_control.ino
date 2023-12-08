@@ -54,6 +54,10 @@ void setup() {
     request->send_P(200, "text/html", index_html);
   });
 
+   server.on("/gamepad", HTTP_GET, [](AsyncWebServerRequest *request){
+    request->send_P(200, "text/html", gamepad_html);
+  });
+
   server.onNotFound([](AsyncWebServerRequest *request){
     request->send(404, "text/plain", "Not Found");
   });
