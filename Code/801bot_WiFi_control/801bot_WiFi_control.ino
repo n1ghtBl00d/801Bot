@@ -12,13 +12,14 @@
 const char* ssid = "your-ssid";
 const char* password = "your-password";
 
+const int rServoPin = 33;
+const int lServoPin = 34;
+
 const int rDeadzoneVal = 1500;
 const int lDeadzoneVal = 1500;
 
 const int turnFactor = 3;
 
-const int rServoPin = 33;
-const int lServoPin = 34;
 // ------ Begin User Settings ------
 
 Servo servo = Servo();

@@ -14,11 +14,11 @@ Connect to the WiFi network, then load http://192.168.4.1/ in a web browser to c
 
 `password` - The password of the Wifi network created by the robot. Please change from the default.
 
-  
+`rServoPin` and `lServoPin` - Change if you connected the Servo signal wires to different pins.
 
 `rDeadzoneVal` and `lDeadzoneVal` - Adjust these up or down if the motors do not stop when the joystick is released.
 
-`rServoPin` and `lServoPin` - Change if you connected the Servo signal wires to different pins.
+`turnFactor` - Sets how sensitive the joystick is to side-to-side inputs. Higher numbers mean finer control but slower turning.
 
 ## Dependencies
 
