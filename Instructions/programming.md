@@ -14,9 +14,9 @@ Go to the Boards Manager and install `esp32 by Espressif Systems`.
 
 ## Download the code
 
-Download the code from the [Releases page](#) or by cloning the repository.
+Download the code from the [Releases page](https://github.com/n1ghtBl00d/801Bot/releases/tag/latest) or by cloning the repository.
 
-Unzip the code and open `801bot_WiFi_control.ino` in Arduino IDE.
+Unzip the code bundle and open `801bot_WiFi_control.ino` in Arduino IDE.
 
 ## Edit the Settings
 
