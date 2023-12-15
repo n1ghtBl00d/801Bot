@@ -20,7 +20,7 @@ const int lDeadzoneVal = 1500;
 
 const int turnFactor = 3;
 
-// ------ Begin User Settings ------
+// ------ End User Settings ------
 
 Servo servo = Servo();
 
